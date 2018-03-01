@@ -40,11 +40,6 @@ public class CSVReader
 		}
 	}
 	
-	public void write()
-	{
-		
-	}
-	
 	public static void main(String[] args)
 	{
 		new CSVReader();
