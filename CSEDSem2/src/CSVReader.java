@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * A class that reads from and writes to .csv files.
+ * A class that reads from .csv files.
  * @author ajb258
  * @version 1.0
  * @release N/A
