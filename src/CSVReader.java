@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * A class that reads from .csv files.
@@ -12,7 +10,7 @@ import java.io.IOException;
 
 public class CSVReader
 {
-	String csvFile = "example.csv";
+	String csvFile = "src/entries.csv";
 	String line = "";
 	String csvSplit = ",";
 	
@@ -22,18 +20,21 @@ public class CSVReader
 	
 	public CSVReader()
 	{
-		read();
+		//read(csvFile);
 	}
 	
 	/**
 	 * Method that reads from a .csv file, and displays the contents in the console.
 	 */
 	
-	public void read()
+	public ArrayList<Entry> readEntries(String toRead)
 	{
+		
+		ArrayList<Entry> allEntries = new ArrayList<Entry>();
+		
 		try
 		{
-			BufferedReader br = new BufferedReader(new FileReader(csvFile));
+			BufferedReader br = new BufferedReader(new FileReader(toRead));
 			int iteration = 0;
 			while ((line = br.readLine()) != null)
 			{
@@ -45,23 +46,34 @@ public class CSVReader
 				else
 				{
 					String[] fields = line.split(csvSplit);
-					System.out.println("ID: " + fields[0]);
-					System.out.println("Name: " + fields[1]);
-					System.out.println("Age: " + fields[2]);
-					System.out.println("Gender: " + fields[3] + "\n");
+					int entryType = Integer.parseInt(fields[0]);
+					int entryUser = Integer.parseInt(fields[1]);
+					Entry currentEntry = new Entry(entryType,entryUser,fields[2],fields[3]);
+					allEntries.add(currentEntry);	
 				}	
 			}
 			
 			br.close();
+			return allEntries;
+			
+			
 		}
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
+	}
+	
+	public ArrayList<Entry> SearchFor(String searchTerm){
+		ArrayList<Entry> allFound = new ArrayList<Entry>();
+		
+		return allFound;
 	}
 	
 	public static void main(String[] args)
