@@ -28,7 +28,7 @@ public class Entry {
 		System.out.println(toPrint);
 		
 	}
-	
+	//I'm not commenting all of these they're pretty self-explanatory.
 	public void setType(int t){
 		this.type = t;
 	}
@@ -70,8 +70,11 @@ public class Entry {
 		this.date = "";
 	}
 	/**
-	 * Constructor
-	 * @param: the values to be stored in the entry object
+	 * 
+	 * @param t: the type of the entry to be stored
+	 * @param id: the userID of the person adding the entry
+	 * @param v: the value of the entry
+	 * @param d: the date the entry was made on
 	 */
 	public Entry(int t, int id, String v, String d){
 		this.type = t;
