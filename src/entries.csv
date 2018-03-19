@@ -1,4 +1,4 @@
-type,userID,value,date,
+type,userID,calorieValue,date,
 1,2,570,06/03/2018,
 3,2,600,06/03/2018,
 1,1,600,06/03/2018,
