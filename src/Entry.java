@@ -11,7 +11,7 @@ public class Entry {
 	 * prints the entry to standard out
 	 */
 	public void print(){
-		String toPrint = "";
+		String toPrint = "---------------\n";
 		switch(this.type){
 		
 		case 1: toPrint += "Breakfast";

@@ -37,6 +37,17 @@ public class UI	{
 				break;
 				
 				case "VIEWENTRIES": printAllEntries();
+				break;
+				
+				case "SEARCH":
+				{
+					System.out.println("please enter the header to search under\nUserID,Type,calorieValue,Date");
+					String field = userInput.readLine();
+					System.out.println("please enter the value to search for");
+					String value = userInput.readLine();
+					printSearchResults(field,value);
+					break;
+				}
 				
 				case "EXIT": System.exit(0);
 				
@@ -62,6 +73,9 @@ public class UI	{
 		ArrayList<Entry> results = searchFor(field,value);
 		for(int i = 0; i<results.size();i++){
 			results.get(i).print();
+		}
+		if(results.size()==0){
+			System.out.println("No results found.");
 		}
 	}
 	
