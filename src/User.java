@@ -1,16 +1,19 @@
 public class User {
 
+    private int userID;
     private int height;
     private int age;
     private String sex;
 
     public User(){
+        this.userID = 0;
         this.height = 0;
         this.age = 0;
         this.sex = "";
     }
 
-    public User(int h, int a, String s){
+    public User(int u, int h, int a, String s){
+        this.userID = u;
         this.height = h;
         this.age = a;
         this.sex = s;
@@ -39,6 +42,12 @@ public class User {
         this.sex = s;
     }
 
+    public void setUserID(int u){
+        this.userID = u;
+    }
+
+
+
     public int getHeight(){
         return this.height;
     }
@@ -49,6 +58,10 @@ public class User {
 
     public String getSex(){
         return this.sex;
+    }
+
+    public int getUserID(){
+        return this.userID;
     }
 
 }
