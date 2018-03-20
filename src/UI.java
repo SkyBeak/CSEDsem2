@@ -36,6 +36,9 @@ public class UI	{
 				case "ADDDINNER": addEntry(userInput,3);
 				break;
 				
+				case "ADDSNACK": addEntry(userInput,4);
+				break;
+				
 				case "VIEWENTRIES": printAllEntries();
 				break;
 				
@@ -55,7 +58,7 @@ public class UI	{
 				}
 			}
 		}catch(IOException e){
-
+			System.err.println("Something has gone horribly wrong.");
 		}
 		
 		
@@ -70,6 +73,21 @@ public class UI	{
 	}
 	//test method to check CSVReader search works
 	private void printSearchResults(String field, String value){
+		if(field.toUpperCase().equals("TYPE")){
+			switch(value.toUpperCase()){
+			case "BREAKFAST": value = "1";
+			break;
+			
+			case "LUNCH": value = "2";
+			break;
+			
+			case "DINNER": value = "3";
+			break;
+			
+			case "SNACK": value = "4";
+			break;
+			}
+		}
 		ArrayList<Entry> results = searchFor(field,value);
 		for(int i = 0; i<results.size();i++){
 			results.get(i).print();
