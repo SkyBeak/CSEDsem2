@@ -27,7 +27,7 @@ public class CSVWriter	{
 	/* adds user to user.csv file*/
     	public void addUser(int height, int age, String sex){
         	try{
-            		userWriter = new FileWriter(new File("src/user.csv"), true);
+            		userWriter = new FileWriter(new File("src/users.csv"), true);
             		userWriter.write("\n"+height+","+age+","+sex+",");
             		System.out.println("New user written to file");
             		userWriter.close();
