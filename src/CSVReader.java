@@ -78,31 +78,26 @@ public class CSVReader
      * @param value: the value of the field to be searched for
      * @return: an arraylist of all entries which contain the correct values for the field
      */
-    public ArrayList<Entry> SearchFor(String field, String value){
+    public ArrayList<Entry> SearchFor(String field, String value, int user){
         ArrayList<Entry> allFound = new ArrayList<Entry>();
         ArrayList<Entry> allEntries = readEntries("src/entries.csv");
         for(int i = 0; i<allEntries.size();i++){
             Entry current = allEntries.get(i);
+            int UserID = current.getUserID();
             switch(field){
                 case "TYPE" :
                     Integer Type = current.getType();
-                    if(Type.toString().equals(value) ){
-                        allFound.add(current);
-                    }
-                    break;
-                case "USERID" :
-                    Integer UserID = current.getUserID();
-                    if(UserID.toString().equals(value)){
+                    if(Type.toString().equals(value) && UserID==user){
                         allFound.add(current);
                     }
                     break;
                 case "VALUE" :
-                    if(current.getValue().equals(value)){
+                    if(current.getValue().equals(value) && UserID==user){
                         allFound.add(current);
                     }
                     break;
                 case "DATE" :
-                    if(current.getDate().equals(value)){
+                    if(current.getDate().equals(value) && UserID==user){
                         allFound.add(current);
                     }
                     break;
