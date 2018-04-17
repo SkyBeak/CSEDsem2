@@ -1,5 +1,5 @@
 //used for calculating calories needed to maintain, gain or loose weight and how many left to eat in a given week
-
+//test
 public class Calories {
 
     public Calories(){
