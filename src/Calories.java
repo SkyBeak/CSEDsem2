@@ -1,6 +1,7 @@
 //used for calculating calories needed to maintain, gain or loose weight and how many left to eat in a given week
-import java.io.*;
+//test
 
+import java.io.*;
 public class Calories {
 
     public Calories(){
