@@ -48,9 +48,7 @@ public class UI	{
 					String field = userInput.readLine();
 					System.out.println("please enter the value to search for");
 					String value = userInput.readLine();
-					System.out.println("Input user to search for");
-					int user = Integer.parseInt(userInput.readLine());
-					printSearchResults(field,value, user);
+					printSearchResults(field,value);
 					break;
 				}
 				
@@ -77,7 +75,7 @@ public class UI	{
 		}
 	}
 	//test method to check CSVReader search works
-	private void printSearchResults(String field, String value, int user){
+	private void printSearchResults(String field, String value){
 		if(field.toUpperCase().equals("TYPE")){
 			switch(value.toUpperCase()){
 			case "BREAKFAST": value = "1";
@@ -93,7 +91,7 @@ public class UI	{
 			break;
 			}
 		}
-		ArrayList<Entry> results = searchFor(field,value, user);
+		ArrayList<Entry> results = searchFor(field,value);
 		for(int i = 0; i<results.size();i++){
 			results.get(i).print();
 		}
@@ -108,8 +106,8 @@ public class UI	{
 	 * @param value: a string representing the value of the field to be searched for
 	 * @return: an ArrayList of entries retrieved from the csv file containing the correct field values.
 	 */
-	private ArrayList<Entry> searchFor(String field, String value, int user){
-		ArrayList<Entry> found = entryReader.SearchFor(field.toUpperCase(), value, user);
+	private ArrayList<Entry> searchFor(String field, String value){
+		ArrayList<Entry> found = entryReader.SearchFor(field.toUpperCase(), value);
 		return found;
 	}
 	
