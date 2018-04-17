@@ -55,6 +55,7 @@ public class UI	{
 				}
 				
 				case "EXERCISE": addEntry(userInput, 5);
+				break;
 				
 				case "EXIT": System.exit(0);
 				
@@ -123,17 +124,18 @@ public class UI	{
 				System.err.println("Error getting user input");
 				System.exit(1);
 			}
+			if(isNumeric(calories)){
+				int cal = Integer.parseInt(calories);
+				entryWriter.addEntry(type,1,cal);
+			}else{
+				addEntry(br,type);
+			}
 		}else{
 			addExercise(br);
 		}
 		
 		
-		if(isNumeric(calories)){
-			int cal = Integer.parseInt(calories);
-			entryWriter.addEntry(type,1,cal);
-		}else{
-			addEntry(br,type);
-		}
+		
 	}
 	
 	private void addExercise(BufferedReader br){
