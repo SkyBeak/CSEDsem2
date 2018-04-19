@@ -1,1 +1,2 @@
-name,gender,height,weight,age,goal,targetweight,
+name,gender,height,weight,age,targetWeight,targetTime
+"Ben","male",190,55,18,21/04/2018,60,
