@@ -3,7 +3,6 @@ import java.util.*;
 public class Entry {
 
 	private int type;
-	private int userID;
 	private String value;
 	private String date;
 	
@@ -41,14 +40,6 @@ public class Entry {
 		return this.type;
 	}
 	
-	public void setUserID(int id){
-		this.userID = id;
-	}
-	
-	public int getUserID(){
-		return this.userID;
-	}
-	
 	public void setValue(String v){
 		this.value = v;
 	}
@@ -69,20 +60,17 @@ public class Entry {
 	 */
 	public Entry(){
 		this.type = 0;
-		this.userID = 0;
 		this.value = "";
 		this.date = "";
 	}
 	/**
 	 * 
 	 * @param t: the type of the entry to be stored
-	 * @param id: the userID of the person adding the entry
 	 * @param v: the value of the entry
 	 * @param d: the date the entry was made on
 	 */
-	public Entry(int t, int id, String v, String d){
+	public Entry(int t, String v, String d){
 		this.type = t;
-		this.userID = id;
 		this.value = v;
 		this.date = d;
 	}

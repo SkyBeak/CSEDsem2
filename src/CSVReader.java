@@ -50,8 +50,7 @@ public class CSVReader
                 {
                     String[] fields = line.split(csvSplit);
                     int entryType = Integer.parseInt(fields[0]);
-                    int entryUser = Integer.parseInt(fields[1]);
-                    Entry currentEntry = new Entry(entryType,entryUser,fields[2],fields[3]);
+                    Entry currentEntry = new Entry(entryType,fields[1],fields[2]);
                     allEntries.add(currentEntry);
                 }
             }
@@ -126,10 +125,10 @@ public class CSVReader
                 else
                 {
                     String[] fields = line.split(csvSplit);
-                    int userID = Integer.parseInt(fields[0]);
-                    int userHeight = Integer.parseInt(fields[1]);
-                    int userAge = Integer.parseInt(fields[2]);
-                    User currentUser = new User(userID,userHeight, userAge,fields[3]);
+                    int userHeight = Integer.parseInt(fields[2]);
+                    int userAge = Integer.parseInt(fields[4]);
+                    int userWeight = Integer.parseInt(fields[3]);
+                    User currentUser = new User(userHeight, userAge,userWeight, fields[1]);
                     allUsers.add(currentUser);
                 }
             }
@@ -149,19 +148,6 @@ public class CSVReader
             e.printStackTrace();
             return null;
         }
-    }
-
-    /* returns the user object of a given userID */
-    public User searchUser(int userID){
-        ArrayList<User> allUsers = readUsers("src/users.csv");
-        for(int i=0; i<allUsers.size(); i++){
-            User current = allUsers.get(i);
-            if (current.getUserID()==userID){
-                return current;
-            }
-        }
-        return null;
-
     }
 
     public static void main(String[] args)

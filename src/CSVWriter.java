@@ -1,5 +1,8 @@
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class CSVWriter	{
 	
@@ -13,7 +16,9 @@ public class CSVWriter	{
 	public void addEntry(int type, int calories){
 		try {
 			entryWriter = new FileWriter(new File("src/entries.csv"),true);
-			String date = LocalDateTime.now().toString().substring(0, 10);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+			Calendar c = Calendar.getInstance();
+			String date = sdf.format(c.getTime());
 			entryWriter.write("\n"+type+","+calories+","+date+",");
 			System.out.println("entry written to file");
 			entryWriter.close();

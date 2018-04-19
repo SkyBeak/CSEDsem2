@@ -1,30 +1,29 @@
 public class User {
 
-    private int userID;
     private int height;
     private int age;
+    private int weight;
     private String sex;
 
     public User(){
-        this.userID = 0;
         this.height = 0;
         this.age = 0;
         this.sex = "";
     }
 
-    public User(int u, int h, int a, String s){
-        this.userID = u;
-        this.height = h;
-        this.age = a;
-        this.sex = s;
+    public User(int h, int a, int w, String s){
+        setHeight(h);
+        setAge(a);
+        setSex(s);
+        setWeight(w);
     }
 
     public void print(){
         String toPrint = "---------------\n";
         if (sex=="") {
-            toPrint += "\n ID:"+this.userID+"\nAge:" + this.age + "\nHeight:" + this.height + "\n---------------";
+            toPrint += "\nAge:" + this.age + "\nHeight:" + this.height + "\n---------------";
         } else {
-            toPrint += "\n ID:"+this.userID+"\nAge:" + this.age + "\nHeight:" + this.height + "\n Sex:" + this.sex + "\n---------------";
+            toPrint += "\nAge:" + this.age + "\nHeight:" + this.height + "\n Sex:" + this.sex + "\n---------------";
         }
         System.out.println(toPrint);
 
@@ -41,12 +40,15 @@ public class User {
     public void setSex(String s){
         this.sex = s;
     }
-
-    public void setUserID(int u){
-        this.userID = u;
+    
+    public void setWeight(int w){
+    	this.weight = w;
     }
 
 
+    public int getWeight(){
+    	return this.weight;
+    }
 
     public int getHeight(){
         return this.height;
@@ -58,10 +60,6 @@ public class User {
 
     public String getSex(){
         return this.sex;
-    }
-
-    public int getUserID(){
-        return this.userID;
     }
 
 }
