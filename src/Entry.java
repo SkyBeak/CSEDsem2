@@ -25,6 +25,7 @@ public class Entry {
 				
 		case 4: toPrint += "Snack";
 				break;
+		case 5: toPrint += "Exercise";
 		}
 		
 		toPrint += "\nCalories:" + value + "\nDate:" + date + "\n---------------";

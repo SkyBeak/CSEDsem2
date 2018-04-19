@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 public class UI	{
@@ -16,8 +18,16 @@ public class UI	{
 	 */
 	public UI(){
 		
+		
+		
 		entryReader  = new CSVReader();
 		entryWriter = new CSVWriter();
+		
+		System.out.println("Calories consumed so far this week:\n");
+		displayDays(7,"Food");
+		
+		System.out.println("\nCalories burned so far this week:\n");
+		displayDays(7,"Exercise");
 		
 		System.out.println("Please input either breakfast, lunch, dinner or snack using the commands:\n\"addBreakfast\", \"addLunch\", \"addDinner\"\nOr add exercise with the command \"exercise\"\nOr view entries using the \"viewEntries\" command.");
 		
@@ -89,6 +99,9 @@ public class UI	{
 			
 			case "SNACK": value = "4";
 			break;
+			
+			case "EXERCISE": value = "5";
+			break;
 			}
 		}
 		ArrayList<Entry> results = searchFor(field,value);
@@ -124,7 +137,7 @@ public class UI	{
 			}
 			if(isNumeric(calories)){
 				int cal = Integer.parseInt(calories);
-				entryWriter.addEntry(type,1,cal);
+				entryWriter.addEntry(type,cal);
 			}else{
 				addEntry(br,type);
 			}
@@ -132,6 +145,43 @@ public class UI	{
 			addExercise(br);
 		}
 		
+		
+		
+	}
+	
+	private void displayDays(int days, String field){
+		Calendar c = Calendar.getInstance();
+		Date current;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+		for(int i = 0; i<days;i++){
+			current = c.getTime();
+			showDayStars(sdf.format(current), field.toUpperCase());
+			c.add(c.DAY_OF_MONTH, -1);
+		}
+	}
+	
+	private void showDayStars(String date, String type){
+		int calorieTotal = 0;
+		int starTotal = 0;
+		
+		if(type.equals("WEIGHT")){
+			
+		}else{
+			ArrayList<Entry> dayEntries = searchFor("DATE",date);
+			for(int i = 0;i<dayEntries.size();i++){
+				int current = Integer.parseInt(dayEntries.get(i).getValue());
+				if(current>0 && type.equals("FOOD")){
+					starTotal += current/20;
+				}else if(current<0 && type.equals("EXERCISE")){
+					starTotal += -current/20;
+				}
+			}
+		}
+		System.out.print(date+": ");
+		for(int i = 0;i<starTotal;i++){
+			System.out.print('*');
+		}
+		System.out.println();
 		
 		
 	}
@@ -170,7 +220,7 @@ public class UI	{
 		}
 		
 		try{
-			entryWriter.addEntry(5, 1, Integer.parseInt(caloriesBurnt));
+			entryWriter.addEntry(5, Integer.parseInt(caloriesBurnt));
 		}catch(NumberFormatException e){
 			System.err.println("Something has gone horribly wrong");
 			System.exit(1);

@@ -83,7 +83,6 @@ public class CSVReader
         ArrayList<Entry> allEntries = readEntries("src/entries.csv");
         for(int i = 0; i<allEntries.size();i++){
             Entry current = allEntries.get(i);
-            int UserID = current.getUserID();
             switch(field){
                 case "TYPE" :
                     Integer Type = current.getType();
