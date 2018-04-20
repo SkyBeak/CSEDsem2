@@ -301,7 +301,7 @@ public class UI	{
 	
 	    //for GUI to be able to add food
     	private void addFood(int calories, String foodType){
-      		entryWriter.addEntry(3, calories);
+      		writer.addEntry(3, calories);
     	}
 
 
