@@ -106,11 +106,10 @@ public class CSVReader
         return allFound;
     }
 
-    public ArrayList<User> readUsers(String toRead)
+    public User readUser(String toRead)
     {
-
-        ArrayList<User> allUsers = new ArrayList<User>();
-
+    	
+        User u = new User();
         try
         {
             BufferedReader br = new BufferedReader(new FileReader(toRead));
@@ -125,17 +124,19 @@ public class CSVReader
                 else
                 {
                     String[] fields = line.split(csvSplit);
+                    String name = fields[0];
+                    String gender = fields[1];
                     int userHeight = Integer.parseInt(fields[2]);
-                    int userAge = Integer.parseInt(fields[4]);
                     int userWeight = Integer.parseInt(fields[3]);
-                    int targetWeight = Integer.parseInt(fields[6]);
-                    User currentUser = new User(userHeight, userAge,userWeight, fields[1], fields[5], targetWeight);
-                    allUsers.add(currentUser);
+                    int userAge = Integer.parseInt(fields[4]);
+                    int userTargetWeight = Integer.parseInt(fields[5]);
+                    String userTargetTime = fields[6];
+                    u = new User(name, gender, userHeight, userWeight, userAge, userTargetWeight, userTargetTime);
                 }
             }
 
             br.close();
-            return allUsers;
+            return u;
 
 
         }

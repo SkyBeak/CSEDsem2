@@ -7,246 +7,297 @@ import java.text.SimpleDateFormat;
 
 public class UI	{
 
-    CSVReader entryReader;
-    CSVWriter entryWriter;
+	CSVReader reader;
+	CSVWriter writer;
+	User u;
+	Calories c;
 
-    public static void main(String[] args){
-        UI textInterface = new UI();
-    }
-    /**
-     * constructor, currently just sets up an entry reader and runs any test methods.
-     */
-    public UI(){
-        entryReader  = new CSVReader();
-        entryWriter = new CSVWriter();
+	public static void main(String[] args){
+		UI textInterface = new UI();
+		textInterface.startUI();
+	}
+	/**
+	 * constructor, currently just sets up an entry reader and runs any test methods.
+	 */
+	public UI(){
 
-        System.out.println("Calories consumed so far this week:\n");
-        displayDays(7,"Food");
+		c = new Calories();
+		reader  = new CSVReader();
+		writer = new CSVWriter();
 
-        System.out.println("\nCalories burned so far this week:\n");
-        displayDays(7,"Exercise");
+	}
 
-        System.out.println("Please input either breakfast, lunch, dinner or snack using the commands:\n\"addBreakfast\", \"addLunch\", \"addDinner\"\nOr add exercise with the command \"exercise\"\nOr view entries using the \"viewEntries\" command.");
+	private void startUI(){
 
-        BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-        String userCommand;
-        try{
-            while((userCommand = userInput.readLine().toUpperCase())!=null){
-                switch(userCommand){
+		u = reader.readUser("src/users.csv");
 
-                    case "ADDBREAKFAST": addEntry(userInput,1);
-                        break;
+		BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
-                    case "ADDLUNCH": addEntry(userInput,2);
-                        break;
+		if(u.getName().equals("")){
+			createUserProfile(userInput);
+		}
 
-                    case "ADDDINNER": addEntry(userInput,3);
-                        break;
+		System.out.println("Calories consumed so far this week:\n");
+		displayDays(7,"Food");
 
-                    case "ADDSNACK": addEntry(userInput,4);
-                        break;
+		System.out.println("\nCalories burned so far this week:\n");
+		displayDays(7,"Exercise");
 
-                    case "VIEWENTRIES": printAllEntries();
-                        break;
+		System.out.println("Please input either breakfast, lunch, dinner or snack using the commands:\n\"addBreakfast\", \"addLunch\", \"addDinner\"\nOr add exercise with the command \"exercise\"\nOr view entries using the \"viewEntries\" command.");
 
-                    case "SEARCH":
-                    {
-                        System.out.println("please enter the header to search under\nType,calorieValue,Date");
-                        String field = userInput.readLine();
-                        System.out.println("please enter the value to search for");
-                        String value = userInput.readLine();
-                        printSearchResults(field,value);
-                        break;
-                    }
+		String userCommand;
+		try{
+			while((userCommand = userInput.readLine().toUpperCase())!=null){
+				switch(userCommand){
 
-                    case "EXERCISE": addEntry(userInput, 5);
-                        break;
+				case "ADDBREAKFAST": addEntry(userInput,1);
+				break;
 
-                    case "EXIT": System.exit(0);
+				case "ADDLUNCH": addEntry(userInput,2);
+				break;
 
-                    default: System.out.println("Please input either breakfast, lunch or dinner using the commands:\n\"addBreakfast\", \"addLunch\", \"addDinner\"\nOr view entries using the \"viewEntries\" command.");
-                }
-            }
-        }catch(IOException e){
-            System.err.println("Something has gone horribly wrong.");
-        }
+				case "ADDDINNER": addEntry(userInput,3);
+				break;
 
+				case "ADDSNACK": addEntry(userInput,4);
+				break;
 
-    }
+				case "VIEWENTRIES": printAllEntries();
+				break;
 
-    //test method to check the CSVReader code actually works
-    private void printAllEntries(){
-        ArrayList<Entry> allEntries = entryReader.readEntries("src/entries.csv");
-        for(int i = 0; i<allEntries.size();i++){
-            allEntries.get(i).print();
-        }
-    }
-    //test method to check CSVReader search works
-    private void printSearchResults(String field, String value){
-        if(field.toUpperCase().equals("TYPE")){
-            switch(value.toUpperCase()){
-                case "BREAKFAST": value = "1";
-                    break;
+				case "SEARCH":
+				{
+					System.out.println("please enter the header to search under\nType,calorieValue,Date");
+					String field = userInput.readLine();
+					System.out.println("please enter the value to search for");
+					String value = userInput.readLine();
+					printSearchResults(field,value);
+					break;
+				}
 
-                case "LUNCH": value = "2";
-                    break;
+				case "EXERCISE": addEntry(userInput, 5);
+				break;
 
-                case "DINNER": value = "3";
-                    break;
+				case "EXIT": System.exit(0);
 
-                case "SNACK": value = "4";
-                    break;
+				default: System.out.println("Please input either breakfast, lunch or dinner using the commands:\n\"addBreakfast\", \"addLunch\", \"addDinner\"\nOr view entries using the \"viewEntries\" command.");
+				}
+			}
+		}catch(IOException e){
+			System.err.println("Something has gone horribly wrong.");
+		}
 
-                case "EXERCISE": value = "5";
-                    break;
-            }
-        }
-        ArrayList<Entry> results = searchFor(field,value);
-        for(int i = 0; i<results.size();i++){
-            results.get(i).print();
-        }
-        if(results.size()==0){
-            System.out.println("No results found.");
-        }
-    }
+	}
 
-    /**
-     *
-     * @param field: the name of the field to be searched for
-     * @param value: a string representing the value of the field to be searched for
-     * @return: an ArrayList of entries retrieved from the csv file containing the correct field values.
-     */
-    private ArrayList<Entry> searchFor(String field, String value){
-        ArrayList<Entry> found = entryReader.SearchFor(field.toUpperCase(), value);
-        return found;
-    }
+	//test method to check the CSVReader code actually works
+	private void printAllEntries(){
+		ArrayList<Entry> allEntries = reader.readEntries("src/entries.csv");
+		for(int i = 0; i<allEntries.size();i++){
+			allEntries.get(i).print();
+		}
+	}
+	//test method to check CSVReader search works
+	private void printSearchResults(String field, String value){
+		if(field.toUpperCase().equals("TYPE")){
+			switch(value.toUpperCase()){
+			case "BREAKFAST": value = "1";
+			break;
 
-    private void addEntry(BufferedReader br, int type){
+			case "LUNCH": value = "2";
+			break;
 
-        String calories = "";
-        if(type !=5){
-            System.out.println("Please input the number of calories consumed");
-            try{
-                calories = br.readLine();
-            }catch(IOException e){
-                System.err.println("Error getting user input");
-                System.exit(1);
-            }
-            if(isNumeric(calories)){
-                int cal = Integer.parseInt(calories);
-                entryWriter.addEntry(type,cal);
-            }else{
-                addEntry(br,type);
-            }
-        }else{
-            addExercise(br);
-        }
+			case "DINNER": value = "3";
+			break;
 
+			case "SNACK": value = "4";
+			break;
 
+			case "EXERCISE": value = "5";
+			break;
+			}
+		}
+		ArrayList<Entry> results = searchFor(field,value);
+		for(int i = 0; i<results.size();i++){
+			results.get(i).print();
+		}
+		if(results.size()==0){
+			System.out.println("No results found.");
+		}
+	}
+	/**
+	 * Adds a new user if one does not already exist
+	 * @param br: buffered reader to read input from
+	 */
+	private void createUserProfile(BufferedReader br){
 
-    }
+		String name;
+		String gender;
+		int height;
+		int weight;
+		int age;
+		int goal;
+		int targetWeight;
 
-    private void displayDays(int days, String field){
-        Calendar c = Calendar.getInstance();
-        Date current;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
-        for(int i = 0; i<days;i++){
-            current = c.getTime();
-            showDayStars(sdf.format(current), field.toUpperCase());
-            c.add(c.DAY_OF_MONTH, -1);
-        }
-    }
+		try {
+			System.out.println("Please input user name");
+			name = br.readLine();
+			System.out.println("Please input gender");
+			gender = br.readLine();
+			System.out.println("Please input height");
+			height = Integer.parseInt(br.readLine());
+			System.out.println("Please input weight");
+			weight = Integer.parseInt(br.readLine());
+			System.out.println("Please input age");
+			age = Integer.parseInt(br.readLine());
+			System.out.println("Please input goal");
+			goal = Integer.parseInt(br.readLine());
+			System.out.println("Please input target weight");
+			targetWeight = Integer.parseInt(br.readLine());
 
-    private void showDayStars(String date, String type){
-        int calorieTotal = 0;
-        int starTotal = 0;
+			writer.addUser(name, gender, height, weight, age, goal, targetWeight);
+			u = reader.readUser("src/users.csv");
 
-        ArrayList<User> temp = new ArrayList<User>(entryReader.readUsers("src/user.csv"));
-        User user= temp.get(0);
-        int dailyCalories = Calories.maintain(user);
-
-        if(type.equals("WEIGHT")){
-
-        }else{
-            ArrayList<Entry> dayEntries = searchFor("DATE",date);
-            for(int i = 0;i<dayEntries.size();i++){
-                int current = Integer.parseInt(dayEntries.get(i).getValue());
-                if(current>0 && type.equals("FOOD")){
-                    starTotal += current;
-                }else if(current<0 && type.equals("EXERCISE")){
-                    starTotal -= current;
-                }
-            }
-        }
-        System.out.print(date+": ");
-
-        //compares calories with dailyRecommended
-        System.out.print(Integer.toString(starTotal) + "/" + Integer.toString(dailyCalories) + " ");
-        starTotal = starTotal/20;
-
-        for(int i = 0;i<starTotal;i++){
-            System.out.print('*');
-        }
-        System.out.println();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 
-    }
+	}
 
-    private void addExercise(BufferedReader br){
-        String level = null;
-        String caloriesBurnt = "-";
-        int mins = 0;
+	/**
+	 * 
+	 * @param field: the name of the field to be searched for
+	 * @param value: a string representing the value of the field to be searched for
+	 * @return: an ArrayList of entries retrieved from the csv file containing the correct field values.
+	 */
+	private ArrayList<Entry> searchFor(String field, String value){
+		ArrayList<Entry> found = reader.SearchFor(field.toUpperCase(), value);
+		return found;
+	}
 
-        System.out.println("Please input exercise level: \"light\", \"medium\", \"hard\"");
-        try{
-            level = br.readLine();
-            System.out.println("Please enter the time exercised for to the nearest minute");
-            mins = Integer.parseInt(br.readLine());
-        }catch(IOException e){
-            System.err.println("Error getting input from console.");
-            System.exit(1);
-        }catch(NumberFormatException n){
-            System.err.println("Invalid number for minutes exercised.");
-            addExercise(br);
-        }
+	private void addEntry(BufferedReader br, int type){
 
-        switch(level.toUpperCase()){
+		String calories = "";
+		if(type !=5){
+			System.out.println("Please input the number of calories consumed");
+			try{
+				calories = br.readLine();
+			}catch(IOException e){
+				System.err.println("Error getting user input");
+				System.exit(1);
+			}
+			if(isNumeric(calories)){
+				int cal = Integer.parseInt(calories);
+				writer.addEntry(type,cal);
+			}else{
+				addEntry(br,type);
+			}
+		}else{
+			addExercise(br);
+		}
 
-            case "LIGHT": caloriesBurnt += mins*2;
-                break;
 
-            case "MEDIUM": caloriesBurnt += mins*5;
-                break;
 
-            case "HARD": caloriesBurnt += mins*10;
-                break;
+	}
 
-            default: System.err.println("Invalid exercise level input");
-                addExercise(br);
-        }
+	private void displayDays(int days, String field){
+		Calendar c = Calendar.getInstance();
+		Date current;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+		for(int i = 0; i<days;i++){
+			current = c.getTime();
+			showDayStars(sdf.format(current), field.toUpperCase());
+			c.add(c.DAY_OF_MONTH, -1);
+		}
+	}
 
-        try{
-            entryWriter.addEntry(5, Integer.parseInt(caloriesBurnt));
-        }catch(NumberFormatException e){
-            System.err.println("Something has gone horribly wrong");
-            System.exit(1);
-        }
-    }
+	private void showDayStars(String date, String type){
+		int starTotal = 0;
 
-    /**
-     *
-     * @param s: the string to be tested
-     * @return whether the string passed in is a sequence of numerical digits
-     */
-    private boolean isNumeric(String s){
-        for(int i = 0; i<s.length();i++){
-            Character current = s.charAt(i);
-            if(!Character.isDigit(current)){
-                return false;
-            }
-        }
-        return true;
-    }
+		int dailyCalories = c.maintain(u);
+
+		if(type.equals("WEIGHT")){
+
+		}else{
+			ArrayList<Entry> dayEntries = searchFor("DATE",date);
+			for(int i = 0;i<dayEntries.size();i++){
+				int current = Integer.parseInt(dayEntries.get(i).getValue());
+				if(current>0 && type.equals("FOOD")){
+					starTotal += current;
+				}else if(current<0 && type.equals("EXERCISE")){
+					starTotal += -current;
+				}
+			}
+		}
+		System.out.print(date+": ");
+
+		//compares calories with dailyRecommended
+		System.out.print(Integer.toString(starTotal) + "/" + Integer.toString(dailyCalories) + " ");
+		starTotal = starTotal/20;
+
+		for(int i = 0;i<starTotal;i++){
+			System.out.print('*');
+		}
+		System.out.println();
+
+
+	}
+
+	private void addExercise(BufferedReader br){
+		String level = null;
+		String caloriesBurnt = "-";
+		int mins = 0;
+
+		System.out.println("Please input exercise level: \"light\", \"medium\", \"hard\"");
+		try{
+			level = br.readLine();
+			System.out.println("Please enter the time exercised for to the nearest minute");
+			mins = Integer.parseInt(br.readLine());
+		}catch(IOException e){
+			System.err.println("Error getting input from console.");
+			System.exit(1);
+		}catch(NumberFormatException n){
+			System.err.println("Invalid number for minutes exercised.");
+			addExercise(br);
+		}
+
+		switch(level.toUpperCase()){
+
+		case "LIGHT": caloriesBurnt += mins*2;
+		break;
+
+		case "MEDIUM": caloriesBurnt += mins*5;
+		break;
+
+		case "HARD": caloriesBurnt += mins*10;
+		break;
+
+		default: System.err.println("Invalid exercise level input");
+		addExercise(br);
+		}
+
+		try{
+			writer.addEntry(5, Integer.parseInt(caloriesBurnt));
+		}catch(NumberFormatException e){
+			System.err.println("Something has gone horribly wrong");
+			System.exit(1);
+		}
+	}
+
+	/**
+	 * 
+	 * @param s: the string to be tested
+	 * @return whether the string passed in is a sequence of numerical digits
+	 */
+	private boolean isNumeric(String s){
+		for(int i = 0; i<s.length();i++){
+			Character current = s.charAt(i);
+			if(!Character.isDigit(current)){
+				return false;
+			}
+		}
+		return true;
+	}
 
 
 }
