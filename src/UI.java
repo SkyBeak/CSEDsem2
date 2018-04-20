@@ -298,6 +298,12 @@ public class UI	{
 		}
 		return true;
 	}
+	
+	    //for GUI to be able to add food
+    	private void addFood(int calories, String foodType){
+      		entryWriter.addEntry(3, calories);
+    	}
+
 
 
 }
