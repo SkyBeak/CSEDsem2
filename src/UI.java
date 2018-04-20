@@ -300,7 +300,7 @@ public class UI	{
 	}
 	
 	    //for GUI to be able to add food
-    	private void addFood(int calories, String foodType){
+    	public void addFood(int calories, String foodType){
       		writer.addEntry(3, calories);
     	}
 
