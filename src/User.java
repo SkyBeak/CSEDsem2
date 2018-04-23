@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class User {
 
     //height in cm
@@ -25,8 +28,11 @@ public class User {
         this.sex = s;
         this.weight = w;
 
-        //add calculation
-        this.age = 0;
+        //cacualtes age from dob
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar c = Calendar.getInstance();
+        String date = sdf.format(c.getTime());
+        this.age = ageCalc(dob, date);
     }
 
     //make it take date od birth and calculate age
@@ -37,8 +43,10 @@ public class User {
         this.weight = w;
         this.targetWeight = targetWeight;
 
-        //add calculation
-        this.age = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar c = Calendar.getInstance();
+        String date = sdf.format(c.getTime());
+        this.age = ageCalc(dob, date);
     }
 
     public void print(){
@@ -50,6 +58,13 @@ public class User {
         }
         System.out.println(toPrint);
 
+    }
+
+    private int ageCalc(String dob, String currentDate){
+        int days = Integer.parseInt(currentDate.substring(0,2)) - Integer.parseInt(dob.substring(0,2));
+        int months = Integer.parseInt(currentDate.substring(3,5)) - Integer.parseInt(dob.substring(3,5));
+        int years = Integer.parseInt(currentDate.substring(6,10)) - Integer.parseInt(dob.substring(6,10));
+        return (years*365 + months*30 + days)/365;
     }
 
     public void setName(String name) {
