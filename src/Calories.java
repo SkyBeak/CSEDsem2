@@ -4,16 +4,13 @@
 import java.io.*;
 public class Calories {
 
-    public Calories(){
-    }
-
-    public int maintain(User user){
+    public static int maintain(User user){
         double bmr = BMR(user.getWeight(), user.getHeight(), user.getAge(), user.getSex());
-        double caloriesPerDay = dailyIntake(0,bmr);
+        double caloriesPerDay = dailyIntake(1,bmr);
         return (int) caloriesPerDay;
     }
 
-    public double BMR(int weight, int height, int age, String sex){
+    public static double BMR(int weight, int height, int age, String sex){
         double BMR = 0;
         if (sex.contains("female")){
             BMR = 447.593 + (9.247*weight) + (3.098*height) - (4.330*age);
@@ -31,7 +28,7 @@ public class Calories {
     }
 
     //using exercise multiplier passed as argument which is based on amount of exercise a person does
-    public double dailyIntake(int exercise, double BMR){
+    public static double dailyIntake(int exercise, double BMR){
         return BMR*exercise;
     }
 
