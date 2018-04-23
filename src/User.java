@@ -1,53 +1,59 @@
 public class User {
 
+    //height in cm
+    private String name;
     private int height;
     private int age;
     private int weight;
-    private String targetTime;
-    private String gender;
-    private String name;
+    private String sex;
     private int targetWeight;
 
+
     public User(){
-        this.height = 0;
-        this.weight = 0;
-        this.age = 0;
-        this.gender = "";
         this.name = "";
+        this.height = 0;
+        this.age = 0;
+        this.sex = "";
+        this.weight = 0;
         this.targetWeight = 0;
-        this.targetTime = "";
     }
 
-    public User(String n, String g, int h, int w, int a, int targetWeight, String targetTime){
-        setName(n);
-        setGender(g);
-    	setHeight(h);
-        setWeight(w);
-        setAge(a);
-        setTargetWeight(targetWeight);
-        setTargetTime(targetTime);
+    //make it take date od birth and calculate age
+    public User(String n ,int h, String dob, int w, String s){
+        this.name = n;
+        this.height = h;
+        this.sex = s;
+        this.weight = w;
+
+        //add calculation
+        this.age = 0;
     }
 
-    /*
-     * prints out information about a user
-     */
+    //make it take date od birth and calculate age
+    public User(String n, int h, String dob, int w, String s, String t, int targetWeight){
+        this.name = n;
+        this.height = h;
+        this.sex = s;
+        this.weight = w;
+        this.targetWeight = targetWeight;
+
+        //add calculation
+        this.age = 0;
+    }
+
     public void print(){
         String toPrint = "---------------\n";
-        if (gender=="") {
+        if (sex=="") {
             toPrint += "\nAge:" + this.age + "\nHeight:" + this.height + "\n---------------";
         } else {
-            toPrint += "\nAge:" + this.age + "\nHeight:" + this.height + "\n gender:" + this.gender + "\n---------------";
+            toPrint += "\nAge:" + this.age + "\nHeight:" + this.height + "\n Sex:" + this.sex + "\n---------------";
         }
         System.out.println(toPrint);
 
     }
-    
-    public void saveUser(){
-    	
-    }
-    
-    public void setTargetWeight(int t){
-    	this.targetWeight = t;
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setHeight(int h){
@@ -58,29 +64,24 @@ public class User {
         this.age = a;
     }
 
-    public void setGender(String g){
-        this.gender = g;
+    public void setSex(String s){
+        this.sex = s;
     }
-    
-    public void setName(String n){
-    	this.name = n;
-    }
-    
+
     public void setWeight(int w){
-    	this.weight = w;
-    }
-    
-    public void setTargetTime(String t){
-    	this.targetTime = t;
+        this.weight = w;
     }
 
-
-    public int getTarget(){
-    	return this.targetWeight;
+    public void setTargetWeight(int w){
+        this.targetWeight = w;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     public int getWeight(){
-    	return this.weight;
+        return this.weight;
     }
 
     public int getHeight(){
@@ -91,16 +92,12 @@ public class User {
         return this.age;
     }
 
-    public String getGender(){
-        return this.gender;
+    public String getSex(){
+        return this.sex;
     }
-    
-    public String getName(){
-    	return this.name;
-    }
-    
-    public String getTargetTime(){
-    	return this.targetTime;
+
+    public int getTargetWeight(){
+        return this.targetWeight;
     }
 
 }
