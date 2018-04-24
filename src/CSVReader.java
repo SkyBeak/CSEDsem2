@@ -150,6 +150,58 @@ public class CSVReader
         }
     }
 
+        public ArrayList<Weight> readWeight(String toRead)
+    {
+        ArrayList<Weight> allWeights = new ArrayList<Weight>();
+
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(toRead));
+            int iteration = 0;
+            while ((line = br.readLine()) != null)
+            {
+                // If statement prevents headers of csv file from being displayed.
+                if (iteration == 0)
+                {
+                    iteration++;
+                }
+                else
+                {
+                    String[] fields = line.split(csvSplit);
+                    int weight = Integer.parseInt(fields[0]);
+
+                    allWeights.add(new Weight(weight, fields[1]));
+                }
+            }
+
+            br.close();
+            return allWeights;
+
+
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int weightAtDate(String toRead, String Date){
+        ArrayList<Weight> allWeights = readWeight(toRead);
+        int weight = 0;
+        for (int i=0; i<allWeights.size(); i++){
+            if (allWeights.get(i).getDate() == Date){
+                weight = allWeights.get(i).getWeight();
+            }
+        }
+        return weight;
+    }
+    
     public static void main(String[] args)
     {
         new CSVReader();
