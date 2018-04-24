@@ -323,6 +323,13 @@ public class UI	{
         return calories;
     }
 
+    public int caloriesToday(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar c = Calendar.getInstance();
+        String date = sdf.format(c.getTime());
+        return caloriesOnDay(date);
+    }
+    
     public int weightOnDay(String Date){
         return reader.weightAtDate("src/weight.csv", Date);
     }
