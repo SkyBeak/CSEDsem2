@@ -11,6 +11,7 @@ public class UI	{
     CSVWriter writer;
     User u;
     Calories c;
+    String toRead;
 
     public static void main(String[] args){
         UI textInterface = new UI();
@@ -24,12 +25,13 @@ public class UI	{
         c = new Calories();
         reader  = new CSVReader();
         writer = new CSVWriter();
-
+        toRead = "src/users.csv";
+        u = reader.readUsers(toRead);
     }
 
     private void startUI(){
 
-        this.u = reader.readUsers("src/users.csv");
+        this.u = reader.readUsers("src/user.csv");
 
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
@@ -136,7 +138,6 @@ public class UI	{
         int height;
         int weight;
         int goal;
-        int targetWeight;
 
         try {
             System.out.println("Please input user name");
@@ -151,8 +152,6 @@ public class UI	{
             dob = br.readLine();
             System.out.println("Please input goal");
             goal = Integer.parseInt(br.readLine());
-            System.out.println("Please input target weight");
-            targetWeight = Integer.parseInt(br.readLine());
             writer.addUser(name, height, dob, gender, weight, goal);
             u = reader.readUsers("src/users.csv");
 
@@ -303,11 +302,24 @@ public class UI	{
         writer.addEntry(3, calories);
     }
 
-    //for adding profile from GUI
     private void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
         writer.addUser(name, height, dob, gender, weight, targetWeight);
-        u = reader.readUsers("src/users.csv");
+        u = reader.readUsers(toRead);
     }
+
+    private int getDailyCalories(){
+        return Calories.maintain(u);
+    }
+
+    private int caloriesOnDay(String date){
+        ArrayList<Entry> dayEntries = searchFor("DATE",date);
+        int calories = 0;
+        for(int i = 0;i<dayEntries.size();i++){
+            calories+= Integer.parseInt(dayEntries.get(i).getValue());
+        }
+        return calories;
+    }
+
 
 
 }
