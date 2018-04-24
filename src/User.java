@@ -11,6 +11,7 @@ public class User {
     private String sex;
     private int targetWeight;
 
+    private String dob;
 
     public User(){
         this.name = "";
@@ -19,6 +20,7 @@ public class User {
         this.sex = "";
         this.weight = 0;
         this.targetWeight = 0;
+        this.dob = "25/04/2018";
     }
 
     //make it take date od birth and calculate age
@@ -27,6 +29,7 @@ public class User {
         this.height = h;
         this.sex = s;
         this.weight = w;
+        this.dob = dob;
 
         //cacualtes age from dob
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
@@ -42,6 +45,7 @@ public class User {
         this.sex = s;
         this.weight = w;
         this.targetWeight = targetWeight;
+        this.dob = dob;
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
         Calendar c = Calendar.getInstance();
