@@ -41,5 +41,20 @@ public class CSVWriter	{
             System.exit(1);
         }
     }
+    
+    public void addWeight(int weight){
+        try{
+            userWriter = new FileWriter(new File("src/weight.csv"), true);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+            Calendar c = Calendar.getInstance();
+            String date = sdf.format(c.getTime());
+            userWriter.write(weight + "," + date);
+            System.out.println("New weight written to file");
+            userWriter.close();
+        } catch (IOException e) {
+            System.err.println("Unable to write to file");
+            System.exit(1);
+        }
+    }
 
 }
