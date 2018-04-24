@@ -303,6 +303,11 @@ public class UI	{
         writer.addEntry(3, calories);
     }
 
+    //for adding profile from GUI
+    private void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
+        writer.addUser(name, height, dob, gender, weight, targetWeight);
+        u = reader.readUsers("src/users.csv");
+    }
 
 
 }
