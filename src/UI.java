@@ -11,7 +11,8 @@ public class UI	{
     CSVWriter writer;
     User u;
     Calories c;
-    String toRead;
+    String userRead;
+    String weightRead;
 
     public static void main(String[] args){
         UI textInterface = new UI();
@@ -25,8 +26,9 @@ public class UI	{
         c = new Calories();
         reader  = new CSVReader();
         writer = new CSVWriter();
-        toRead = "src/users.csv";
-        u = reader.readUsers(toRead);
+        userRead = "src/users.csv";
+        weightRead = "src/weight.csv";
+        u = reader.readUsers(userRead);
     }
 
     private void startUI(){
@@ -303,8 +305,9 @@ public class UI	{
     }
 
     private void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
+        writer.addWeight(weight);
         writer.addUser(name, height, dob, gender, weight, targetWeight);
-        u = reader.readUsers(toRead);
+        u = reader.readUsers(userRead);
     }
 
     private int getDailyCalories(){
@@ -320,6 +323,8 @@ public class UI	{
         return calories;
     }
 
-
+    private int weightOnDay(String Date){
+        return reader.weightAtDate(weightRead, Date);
+    }
 
 }
