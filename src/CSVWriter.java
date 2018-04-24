@@ -41,7 +41,7 @@ public class CSVWriter	{
             System.exit(1);
         }
     }
-    
+
     public void addWeight(int weight){
         try{
             userWriter = new FileWriter(new File("src/weight.csv"), true);
@@ -50,6 +50,18 @@ public class CSVWriter	{
             String date = sdf.format(c.getTime());
             userWriter.write(weight + "," + date);
             System.out.println("New weight written to file");
+            userWriter.close();
+        } catch (IOException e) {
+            System.err.println("Unable to write to file");
+            System.exit(1);
+        }
+    }
+
+    public void addMeal(String file, String name, int calories){
+        try{
+            userWriter = new FileWriter(new File(file), true);
+            userWriter.write(name + "," + calories);
+            System.out.println("New meal or exercise written to file");
             userWriter.close();
         } catch (IOException e) {
             System.err.println("Unable to write to file");
