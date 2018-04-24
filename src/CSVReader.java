@@ -123,7 +123,7 @@ public class CSVReader
             {
                 iteration++;
             }
-            else
+            else if(!line.isEmpty())
             {
                 String[] fields = line.split(csvSplit);
                 int userHeight = Integer.parseInt(fields[2]);
