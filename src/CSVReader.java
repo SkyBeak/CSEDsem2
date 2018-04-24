@@ -107,50 +107,50 @@ public class CSVReader
     }
 
     public User readUsers(String toRead)
+{
+
+    User currentUser = new User();
+
+
+    try
     {
-
-        User currentUser = new User();
-
-
-        try
+        BufferedReader br = new BufferedReader(new FileReader(toRead));
+        int iteration = 0;
+        while ((line = br.readLine()) != null)
         {
-            BufferedReader br = new BufferedReader(new FileReader(toRead));
-            int iteration = 0;
-            while ((line = br.readLine()) != null)
+            // If statement prevents headers of csv file from being displayed.
+            if (iteration == 0)
             {
-                // If statement prevents headers of csv file from being displayed.
-                if (iteration == 0)
-                {
-                    iteration++;
-                }
-                else
-                {
-                    String[] fields = line.split(csvSplit);
-                    int userHeight = Integer.parseInt(fields[2]);
-                    int userWeight = Integer.parseInt(fields[3]);
-                    int targetWeight = Integer.parseInt(fields[5]);
-                    currentUser = new User(fields[0],userHeight, fields[4],userWeight, fields[1], targetWeight);
-                }
+                iteration++;
             }
-
-            br.close();
-            return currentUser;
-
-
+            else
+            {
+                String[] fields = line.split(csvSplit);
+                int userHeight = Integer.parseInt(fields[2]);
+                int userWeight = Integer.parseInt(fields[3]);
+                int targetWeight = Integer.parseInt(fields[5]);
+                currentUser = new User(fields[0],userHeight, fields[4],userWeight, fields[1], targetWeight);
+            }
         }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+
+        br.close();
+        return currentUser;
+
+
     }
+    catch (FileNotFoundException e)
+    {
+        e.printStackTrace();
+        return null;
+    }
+    catch (IOException e)
+    {
+        e.printStackTrace();
+        return null;
+    }
+}
 
-        public ArrayList<Weight> readWeight(String toRead)
+    public ArrayList<Weight> readWeight(String toRead)
     {
         ArrayList<Weight> allWeights = new ArrayList<Weight>();
 
@@ -201,7 +201,51 @@ public class CSVReader
         }
         return weight;
     }
-    
+
+
+    //used for reading meal or exercise
+    public ArrayList<Meal> readMeals(String toRead)
+    {
+        ArrayList<Meal> allMeals = new ArrayList<Meal>();
+
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(toRead));
+            int iteration = 0;
+            while ((line = br.readLine()) != null)
+            {
+                // If statement prevents headers of csv file from being displayed.
+                if (iteration == 0)
+                {
+                    iteration++;
+                }
+                else
+                {
+                    String[] fields = line.split(csvSplit);
+                    int calories = Integer.parseInt(fields[1]);
+
+                    allMeals.add(new Meal(fields[0], calories));
+                }
+            }
+
+            br.close();
+            return allMeals;
+
+
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     public static void main(String[] args)
     {
         new CSVReader();
