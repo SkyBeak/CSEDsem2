@@ -300,21 +300,21 @@ public class UI	{
     }
 
     //for GUI to be able to add food
-    private void addFood(int calories){
+    public void addFood(int calories){
         writer.addEntry(3, calories);
     }
 
-    private void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
+    public void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
         writer.addWeight(weight);
         writer.addUser(name, height, dob, gender, weight, targetWeight);
         u = reader.readUsers(userRead);
     }
 
-    private int getDailyCalories(){
+    public int getDailyCalories(){
         return Calories.maintain(u);
     }
 
-    private int caloriesOnDay(String date){
+    public int caloriesOnDay(String date){
         ArrayList<Entry> dayEntries = searchFor("DATE",date);
         int calories = 0;
         for(int i = 0;i<dayEntries.size();i++){
@@ -323,25 +323,25 @@ public class UI	{
         return calories;
     }
 
-    private int weightOnDay(String Date){
+    public int weightOnDay(String Date){
         return reader.weightAtDate("src/weight.csv", Date);
     }
 
-    private ArrayList<Meal> Meals(){
+    public ArrayList<Meal> Meals(){
         return reader.readMeals("src/meal.csv");
     }
 
-    private void addMeal(String name, int calories){
+    public void addMeal(String name, int calories){
         writer.addMeal("src/meal.csv",name, calories);
         writer.addEntry(3, calories);
     }
 
-    private void addExercise(String name, int calories){
+    public void addExercise(String name, int calories){
         writer.addMeal("src/exercise.csv",name, calories);
         writer.addEntry(3, calories);
     }
 
-    private ArrayList<Meal> Exercises(){
+    public ArrayList<Meal> Exercises(){
         return reader.readMeals("src/exercise.csv");
     }
 
