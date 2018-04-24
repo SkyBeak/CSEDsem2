@@ -344,6 +344,10 @@ public class UI	{
     public ArrayList<Meal> Exercises(){
         return reader.readMeals("src/exercise.csv");
     }
+    
+    public User getProfile(){
+        return reader.readUsers(userRead);
+    }
 
 
 }
