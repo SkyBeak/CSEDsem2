@@ -128,8 +128,8 @@ public class CSVReader
                     String[] fields = line.split(csvSplit);
                     int userHeight = Integer.parseInt(fields[2]);
                     int userWeight = Integer.parseInt(fields[3]);
-                    int targetWeight = Integer.parseInt(fields[6]);
-                    currentUser = new User(fields[0],userHeight, fields[4],userWeight, fields[1], fields[5], targetWeight);
+                    int targetWeight = Integer.parseInt(fields[5]);
+                    currentUser = new User(fields[0],userHeight, fields[4],userWeight, fields[1], targetWeight);
                 }
             }
 
