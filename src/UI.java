@@ -332,8 +332,17 @@ public class UI	{
     }
 
     private void addMeal(String name, int calories){
-        writer.addMeal(name, calories);
+        writer.addMeal("src/meal.csv",name, calories);
         writer.addEntry(3, calories);
+    }
+
+    private void addExercise(String name, int calories){
+        writer.addMeal("src/exercise.csv",name, calories);
+        writer.addEntry(3, calories);
+    }
+
+    private ArrayList<Meal> Exercises(){
+        return reader.readMeals("src/exercise.csv");
     }
 
 
