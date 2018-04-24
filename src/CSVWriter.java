@@ -48,7 +48,7 @@ public class CSVWriter	{
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
             Calendar c = Calendar.getInstance();
             String date = sdf.format(c.getTime());
-            userWriter.write(weight + "," + date);
+            userWriter.write("\n" + weight + "," + date);
             System.out.println("New weight written to file");
             userWriter.close();
         } catch (IOException e) {
@@ -60,7 +60,7 @@ public class CSVWriter	{
     public void addMeal(String file, String name, int calories){
         try{
             userWriter = new FileWriter(new File(file), true);
-            userWriter.write(name + "," + calories);
+            userWriter.write("\n" +name + "," + calories);
             System.out.println("New meal or exercise written to file");
             userWriter.close();
         } catch (IOException e) {
