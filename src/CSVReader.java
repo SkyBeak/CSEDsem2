@@ -195,7 +195,7 @@ public class CSVReader
         ArrayList<Weight> allWeights = readWeight(toRead);
         int weight = 0;
         for (int i=0; i<allWeights.size(); i++){
-            if (allWeights.get(i).getDate() == Date){
+            if (allWeights.get(i).getDate().equals(Date)){
                 weight = allWeights.get(i).getWeight();
             }
         }
