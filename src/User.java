@@ -119,4 +119,9 @@ public class User {
         return this.targetWeight;
     }
 
+    public String getDOB(){
+        return this.dob;
+    }
+
+    
 }
