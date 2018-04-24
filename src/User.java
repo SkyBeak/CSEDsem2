@@ -36,7 +36,7 @@ public class User {
     }
 
     //make it take date od birth and calculate age
-    public User(String n, int h, String dob, int w, String s, String t, int targetWeight){
+    public User(String n, int h, String dob, int w, String s, int targetWeight){
         this.name = n;
         this.height = h;
         this.sex = s;
