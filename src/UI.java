@@ -356,5 +356,27 @@ public class UI	{
         return reader.readUsers(userRead);
     }
 
+        //returns coordiantes for graph in 2d array
+    public ArrayList<Meal> graph(boolean choice, int days){
+        ArrayList<Meal> array = new ArrayList<Meal>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar c = Calendar.getInstance();
+        String date = sdf.format(c.getTime());
+        int num = 0;
+        for (int i=0; i<days; i++){
+            if (choice){
+                num = weightOnDay(date);
+                if (num != 0){
+                    array.add(new Meal(date,num));
+                }
+            } else{
+                num = caloriesOnDay(date);
+                array.add(new Meal(date,num));
+            }
+            c.add(c.DAY_OF_MONTH, -1);
+            date = sdf.format(c.getTime());
+        }
+        return array;
+    }
 
 }
