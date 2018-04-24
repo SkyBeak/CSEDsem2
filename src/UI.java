@@ -300,7 +300,7 @@ public class UI	{
     }
 
     //for GUI to be able to add food
-    private void addFood(int calories, String foodType){
+    private void addFood(int calories){
         writer.addEntry(3, calories);
     }
 
@@ -324,7 +324,17 @@ public class UI	{
     }
 
     private int weightOnDay(String Date){
-        return reader.weightAtDate(weightRead, Date);
+        return reader.weightAtDate("src/weight.csv", Date);
     }
+
+    private ArrayList<Meal> Meals(){
+        return reader.readMeals("src/meal.csv");
+    }
+
+    private void addMeal(String name, int calories){
+        writer.addMeal(name, calories);
+        writer.addEntry(3, calories);
+    }
+
 
 }
