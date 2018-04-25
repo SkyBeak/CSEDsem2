@@ -154,7 +154,7 @@ public class UI	{
             dob = br.readLine();
             System.out.println("Please input goal");
             goal = Integer.parseInt(br.readLine());
-            writer.addUser(name, height, dob, gender, weight, goal);
+            writer.editUser(name, height, dob, gender, weight, goal);
             u = reader.readUsers("src/users.csv");
 
         } catch (IOException e) {
@@ -306,7 +306,7 @@ public class UI	{
 
     public void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
         writer.addWeight(weight);
-        writer.addUser(name, height, dob, gender, weight, targetWeight);
+        writer.editUser(name, height, dob, gender, weight, targetWeight);
         u = reader.readUsers(userRead);
     }
 
