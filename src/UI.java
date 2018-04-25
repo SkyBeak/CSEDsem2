@@ -378,5 +378,20 @@ public class UI	{
         }
         return array;
     }
+    
+    public int averageCalories(int days){
+        int num = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar c = Calendar.getInstance();
+        String date = sdf.format(c.getTime());
+        for (int i=0; i<days; i++){
+            num += caloriesOnDay(date);
+            c.add(c.DAY_OF_MONTH, -1);
+            date = sdf.format(c.getTime());
+        }
+        num /= days;
+        return num;
+
+    }
 
 }
