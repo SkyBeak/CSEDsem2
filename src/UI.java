@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
@@ -305,8 +306,10 @@ public class UI	{
     }
 
     public void addProfile(String name, String gender, int height, int weight, String dob, int targetWeight){
-        writer.addWeight(weight);
-        writer.editUser(name, height, dob, gender, weight, targetWeight);
+        if(checkDateValidity(dob)){
+        	writer.addUser(name, height, dob, gender, weight, targetWeight);
+            writer.addWeight(weight);
+        }
         u = reader.readUsers(userRead);
     }
 
@@ -392,6 +395,25 @@ public class UI	{
         num /= days;
         return num;
 
+    }
+    
+    public boolean checkDateValidity(String input) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar c = Calendar.getInstance();
+        sdf.setLenient(false);
+        try {
+            c.setTime(sdf.parse(input));
+            try{
+            	c.getTime();
+            }catch(Exception e){
+            	return false;
+            }
+            return true;
+        }
+        catch (ParseException e) {
+            return false;
+        }
     }
 
 }
