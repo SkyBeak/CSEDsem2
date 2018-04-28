@@ -405,11 +405,14 @@ public class UI	{
         try {
             c.setTime(sdf.parse(input));
             try{
-            	c.getTime();
+            	if(c.getTime().before(Calendar.getInstance().getTime())){
+            		return true;
+            	}else{
+            		return false;
+            	}
             }catch(Exception e){
             	return false;
             }
-            return true;
         }
         catch (ParseException e) {
             return false;
